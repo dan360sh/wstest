@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	var socket = new WebSocket("ws://localhost:2400");
+socket.onmessage = function(event){
+	var data = JSON.parse(event.data);
+	console.log(data)
+   // event.emit(data.type,data.content);
+}
+function send(e){
+     socket.send(JSON.stringify(e));
+
+}
+</script>
+</body>
+</html>
