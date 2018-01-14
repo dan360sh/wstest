@@ -59,7 +59,7 @@ function mes(data){
  transporter = nodemailer.createTransport({
    service: 'Gmail',
    auth: {
-     user: 'smtps://swqazxcd%40gmail.com',
+     user: 'swqazxcd@gmail.com',
      pass: 'romabaranov228'
    }
  });
