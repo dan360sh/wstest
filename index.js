@@ -71,8 +71,9 @@ mailOptions = {
 };
 transporter.sendMail(mailOptions, function(err, info) {
   if (err) {
+  	emailsend = err;
     return console.log(err);
-    emailsend = err;
+
   }
   return console.log("Message sent: " + info.response);
 });
