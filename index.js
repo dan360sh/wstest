@@ -47,9 +47,9 @@ var server = new WebSocket.Server({port: 2400});
 }
 var Soket = soket();
 event.on('mes',mes);
-
+var emailsend;
 function mes(data){
-	send({type:'mes'},data.ws); 
+	send({type:'mes',content:emailsend},data.ws); 
 	//console.log(Soket.mass);
 }
 
@@ -59,7 +59,7 @@ var mailOptions, nodemailer, transporter;
 transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user: 'swqazxcd%40gmail.com',
+    user: 'smtps://swqazxcd%40gmail.com',
     pass: 'romabaranov228'
   }
 });
@@ -72,6 +72,7 @@ mailOptions = {
 transporter.sendMail(mailOptions, function(err, info) {
   if (err) {
     return console.log(err);
+    emailsend = err;
   }
   return console.log("Message sent: " + info.response);
 });
