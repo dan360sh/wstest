@@ -5,7 +5,7 @@ var fs = require('fs');
 var https = require('https');
 var url = require('url');
 
-nodemailer = require('nodemailer');
+var nodemailer = require('nodemailer');
 // var file = require('./massiv.json');
 var server = new WebSocket.Server({port: 2400});
  function soket(){
@@ -54,26 +54,52 @@ function mes(data){
 }
 
 
-var mailOptions, nodemailer, transporter;
+// var mailOptions, nodemailer, transporter;
 
-transporter = nodemailer.createTransport({
-  service: 'Gmail',
-  auth: {
-    user: 'smtps://swqazxcd%40gmail.com',
-    pass: 'romabaranov228'
-  }
+// transporter = nodemailer.createTransport({
+//   service: 'Gmail',
+//   auth: {
+//     user: 'smtps://swqazxcd%40gmail.com',
+//     pass: 'romabaranov228'
+//   }
+// });
+// mailOptions = {
+//   from: 'Slavik <swqazxcd@gmail.com>',
+//   to: 'angry.shitov@yandex.ru',
+//   subject: 'Hello',
+//   html: '<b>test</b>'
+// };
+// transporter.sendMail(mailOptions, function(err, info) {
+//   if (err) {
+//   	emailsend = err;
+//     return console.log(err);
+
+//   }
+//   return console.log("Message sent: " + info.response);
+// });
+//const nodemailer = require('nodemailer');
+
+let transporter = nodemailer.createTransport({
+    host: 'swqazxcd@gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: {
+        user: 'swqazxcd@gmail.com',
+        pass: 'romabaranov228'
+    }
 });
-mailOptions = {
-  from: 'Slavik <swqazxcd@gmail.com>',
-  to: 'angry.shitov@yandex.ru',
-  subject: 'Hello',
-  html: '<b>test</b>'
-};
-transporter.sendMail(mailOptions, function(err, info) {
-  if (err) {
-  	emailsend = err;
-    return console.log(err);
 
-  }
-  return console.log("Message sent: " + info.response);
+let mailOptions = {
+    from: 'swqazxcd@gmail.com',
+    to: 'angry.shitov@yandex.ru',
+    subject: 'Test',
+    text: 'Hello World!'
+};
+
+transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        return console.log(error.message);
+    }
+    return console.log("Message sent: " + info.response);
 });
