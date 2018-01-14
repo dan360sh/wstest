@@ -54,54 +54,54 @@ function mes(data){
 }
 
 
-// var mailOptions, nodemailer, transporter;
+ var mailOptions, transporter;
 
-// transporter = nodemailer.createTransport({
-//   service: 'Gmail',
-//   auth: {
-//     user: 'smtps://swqazxcd%40gmail.com',
-//     pass: 'romabaranov228'
-//   }
-// });
-// mailOptions = {
-//   from: 'Slavik <swqazxcd@gmail.com>',
-//   to: 'angry.shitov@yandex.ru',
-//   subject: 'Hello',
-//   html: '<b>test</b>'
-// };
-// transporter.sendMail(mailOptions, function(err, info) {
-//   if (err) {
-//   	emailsend = err;
-//     return console.log(err);
+ transporter = nodemailer.createTransport({
+   service: 'Gmail',
+   auth: {
+     user: 'smtps://swqazxcd%40gmail.com',
+     pass: 'romabaranov228'
+   }
+ });
+ mailOptions = {
+   from: 'Slavik <swqazxcd@gmail.com>',
+   to: 'angry.shitov@yandex.ru',
+   subject: 'Hello',
+   html: '<b>test</b>'
+ };
+ transporter.sendMail(mailOptions, function(err, info) {
+   if (err) {
+   	emailsend = err;
+     return console.log(err);
 
-//   }
-//   return console.log("Message sent: " + info.response);
-// });
+  }
+   return console.log("Message sent: " + info.response);
+ });
 //const nodemailer = require('nodemailer');
 
-let transporter = nodemailer.createTransport({
-    host: 'swqazxcd@gmail.com',
-    port: 587,
-    secure: false,
-    requireTLS: true,
-    auth: {
-        user: 'swqazxcd@gmail.com',
-        pass: 'romabaranov228'
-    }
-});
+// let transporter = nodemailer.createTransport({
+//     host: 'swqazxcd@gmail.com',
+//     port: 587,
+//     secure: false,
+//     requireTLS: true,
+//     auth: {
+//         user: 'swqazxcd@gmail.com',
+//         pass: 'romabaranov228'
+//     }
+// });
 
-let mailOptions = {
-    from: 'swqazxcd@gmail.com',
-    to: 'angry.shitov@yandex.ru',
-    subject: 'Test',
-    text: 'Hello World!'
-};
+// let mailOptions = {
+//     from: 'swqazxcd@gmail.com',
+//     to: 'angry.shitov@yandex.ru',
+//     subject: 'Test',
+//     text: 'Hello World!'
+// };
 
-transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-    	emailsend = error.message;
-        return console.log(error.message);
-    }
-    emailsend = info.response;
-    return console.log("Message sent: " + info.response);
-});
+// transporter.sendMail(mailOptions, (error, info) => {
+//     if (error) {
+//     	emailsend = error.message;
+//         return console.log(error.message);
+//     }
+//     emailsend = info.response;
+//     return console.log("Message sent: " + info.response);
+// });
