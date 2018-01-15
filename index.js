@@ -13,7 +13,7 @@ function rand(min, max)
    return Math.floor(Math.random() * (max - min) + min);
  }
  function Soket(){
-	this.mass = {};
+	var mass = {};
 	var count = 0;
 	var a = 0;
 	this.count = function(){
@@ -37,7 +37,7 @@ function rand(min, max)
 	server.on('connection', function(ws) {
 	  var u = count;
 	  count++; 
-	  this.mass[u] = {ws:ws};
+	  mass[u] = {ws:ws};
 	 // ws.send(JSON.stringify({type:'users',content:newfile()}));
 	  ws.on('message', function(message) {
 	  	var ot = JSON.parse(message);
