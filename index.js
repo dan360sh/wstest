@@ -62,7 +62,7 @@ function reg(data){
     if(connection[login] == undefined){
     	var r = rand(10000,100000);
     	regemail[r] = {pass:password,login:login}
-    	var code = 'code='+code;
+    	var code = 'code='+r;
     	email(to,code);
     	soket.send({type:'emailok',content:'письмо отправляется на почту'},data.ws);
     }else{
@@ -74,9 +74,14 @@ event.on('email',pemail);
 function pemail(data){
     if(regemail[data.content]!=undefined){
     	var e = regemail[data.content];
-    	regemail[r] = {pass:password,login:login}
-        connection[e.login] = {pass:e.pass}
-        soket.send({type:'regok'},data.ws); 
+    	//regemail[r] = {pass:password,login:login}
+        connection[e.login] = {pass:e.pass,login:e.login}
+        soket.send({type:'regok',content:{
+        	password:e.pass,
+        	login:e.login
+        }},data.ws); 
+    }else{
+    	soket.send({type:'regno'},data.ws);
     } 
 }
 function email(to,code){
@@ -132,3 +137,27 @@ function email(to,code){
 //     emailsend = info.response;
 //     return console.log("Message sent: " + info.response);
 // });
+function Get(){
+	var a = 0;
+	this.count = function(){
+		a++;
+		return a;
+	}
+	this.get = function(metod,parametr,token,id){
+		https.get("https://api.vk.com/method/"+metod+"?"+parametr+"&access_token="+token+"&v=5.69", (res)=>{ 
+			   res.setEncoding('utf-8');
+			   let rawData = '';
+			   res.on('data', (chunk) => { rawData += chunk;});
+			   res.on('end', () => {
+			   var parsedData = JSON.parse(rawData);
+			   event.emit(id,parsedData});
+			 });
+		});
+    }
+}
+var token = "ab0fa41f76b82962c161ebf5a86e94c405159405111217aaa8363b960033ad530687207cb35ee0c5ce61b";
+var get = new Get();
+get.get('messages.getLongPollServer','',token,'lol');
+event.on('lol',function(data){
+      console.log(data);
+})
