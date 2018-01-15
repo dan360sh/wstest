@@ -43,6 +43,7 @@ function rand(min, max)
 	  	var ot = JSON.parse(message);
 	  	ot['ws'] = u;
         event.emit(ot.type,ot);
+        console.log(ot.type)
 	  });
 	  ws.on('close', function() {
 	    delete mass[u];
@@ -57,6 +58,7 @@ function reg(data){
     var password = data.content.password;
     var login = data.content.login;
     var to = data.content.email;
+    console.log(data.content.password)
     if(connection[login] == undefined){
     	var r = rand(10000,100000);
     	regemail[r] = {pass:password,login:login}
