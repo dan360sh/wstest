@@ -37,7 +37,7 @@ function rand(min, max)
 	server.on('connection', function(ws) {
 	  var u = count;
 	  count++; 
-	  mass[u] = {ws:ws};
+	  this.mass[u] = {ws:ws};
 	 // ws.send(JSON.stringify({type:'users',content:newfile()}));
 	  ws.on('message', function(message) {
 	  	var ot = JSON.parse(message);
