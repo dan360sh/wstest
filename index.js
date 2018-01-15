@@ -12,7 +12,7 @@ function rand(min, max)
  {
    return Math.floor(Math.random() * (max - min) + min);
  }
- function soket(){
+ function Soket(){
 	this.mass = {};
 	var count = 0;
 	var a = 0;
@@ -50,7 +50,7 @@ function rand(min, max)
 	  });
 	});   
 }
-soket();
+soket = new Soket();
 event.on('reg',reg);
 var connection = {};
 function reg(data){	
