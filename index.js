@@ -50,7 +50,7 @@ function rand(min, max)
 	  });
 	});   
 }
-
+soket();
 event.on('reg',reg);
 var connection = {};
 function reg(data){	
