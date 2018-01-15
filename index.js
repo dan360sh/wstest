@@ -51,7 +51,7 @@ function rand(min, max)
 }
 
 event.on('reg',reg);
-
+var connection = {};
 function reg(data){	
 	var ws = data.ws;
     var password = data.content.password;
