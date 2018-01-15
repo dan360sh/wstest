@@ -6,8 +6,12 @@ var https = require('https');
 var url = require('url');
 
 var nodemailer = require('nodemailer');
-// var file = require('./massiv.json');
+var regemail = {}
 var server = new WebSocket.Server({port: 2400});
+function rand(min, max)
+ {
+   return Math.floor(Math.random() * (max - min) + min);
+ }
  function soket(){
 	this.mass = {};
 	var count = 0;
@@ -45,17 +49,38 @@ var server = new WebSocket.Server({port: 2400});
 	  });
 	});   
 }
-var Soket = soket();
-event.on('mes',mes);
-var emailsend;
-function mes(data){
-	send({type:'mes',content:emailsend},data.ws); 
-	//console.log(Soket.mass);
+
+event.on('reg',reg);
+
+function reg(data){	
+	var ws = data.ws;
+    var password = data.content.password;
+    var login = data.content.login;
+    var to = data.content.email;
+    if(connection[login] ==undefined){
+    	var r = rand(10000,100000);
+    	regemail[r] = {pass:password,login:login}
+    	var code = 'code='+code;
+    	email(to,code);
+    	soket.send({type:'emailok',content:'письмо отправляется на почту'},data.ws);
+    }else{
+        soket.send({type:'error',content:'login занят'},data.ws); 
+    }
+    
 }
-
-
+event.on('email',pemail);
+function pemail(data){
+    if(regemail[data.content]!=undefined){
+    	var e = regemail[data.content];
+    	regemail[r] = {pass:password,login:login}
+        connection[e.login] = {pass:e.pass}
+        soket.send({type:'regok'},data.ws); 
+    } 
+}
+function email(to,code){
  var mailOptions, transporter;
-
+ var content;
+ content = "<a href='http://swqazx8w.beget.tech/?"+code+"'>перейдите по сылке для подтверждения регистрации</a>" 
  transporter = nodemailer.createTransport({
    service: 'Gmail',
    auth: {
@@ -65,18 +90,18 @@ function mes(data){
  });
  mailOptions = {
    from: 'Slavik <swqazxcd@gmail.com>',
-   to: 'angry.shitov@yandex.ru',
-   subject: 'Hello',
-   html: '<b>test</b>'
+   to: to,
+   subject: 'подтверждение регистрации',
+   html: content
  };
  transporter.sendMail(mailOptions, function(err, info) {
    if (err) {
-   	emailsend = err;
      return console.log(err);
 
   }
    return console.log("Message sent: " + info.response);
  });
+}
 //const nodemailer = require('nodemailer');
 
 // let transporter = nodemailer.createTransport({
