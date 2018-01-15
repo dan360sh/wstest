@@ -57,7 +57,7 @@ function reg(data){
     var password = data.content.password;
     var login = data.content.login;
     var to = data.content.email;
-    if(connection[login] ==undefined){
+    if(connection[login] == undefined){
     	var r = rand(10000,100000);
     	regemail[r] = {pass:password,login:login}
     	var code = 'code='+code;
