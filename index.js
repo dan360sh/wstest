@@ -84,6 +84,21 @@ function pemail(data){
     	soket.send({type:'regno'},data.ws);
     } 
 }
+event.on('check',check_in)
+function check_in(data){
+     if(connection[data.content.login]!=undefined){
+     	if(connection[data.content.login].pass==data.content.password){
+     	 soket.send({type:'checkok',content:{
+          klot:34  
+        }},data.ws);
+     	}else{
+
+     	soket.send({type:'nocheck'},data.ws);
+        }
+     }else{
+     	soket.send({type:'nocheck'},data.ws);
+     }
+}
 function email(to,code){
  var mailOptions, transporter;
  var content;
@@ -150,7 +165,11 @@ function Get(){
 			   res.on('data', (chunk) => { rawData += chunk;});
 			   res.on('end', () => {
 			   var parsedData = JSON.parse(rawData);
-			   event.emit(id,parsedData});
+			   if(id!=undefined){
+			   	event.emit(id,parsedData);
+			   }
+			   
+			   
 			 });
 		});
     }
@@ -158,6 +177,41 @@ function Get(){
 var token = "ab0fa41f76b82962c161ebf5a86e94c405159405111217aaa8363b960033ad530687207cb35ee0c5ce61b";
 var get = new Get();
 get.get('messages.getLongPollServer','',token,'lol');
-event.on('lol',function(data){
-      console.log(data);
-})
+var parametr = 'domain=your_dreams0&message=spokoynoy_nochi)';
+//get.get('messages.send',parametr,token);
+event.once('lol',longpjl)
+var count = 0;
+function longpjl(data){
+	  var data2 = data.response;
+      var server = data2.server;
+      var key = data2.key;
+      var ts = data2.ts;
+      setInterval(function(){
+	      https.get('https://'+server+'?act=a_check&key='+key+'&ts='+ts+'&wait=2&mode=90&version=2', (res)=>{ 
+				   res.setEncoding('utf-8');
+				   let rawData = '';
+				   res.on('data', (chunk) => { rawData += chunk;});
+				   res.on('end', () => {
+				   var parsedData = JSON.parse(rawData);
+				   //console.log(parsedData);
+				   //event.emit('lol',data)
+				   ts = parsedData.ts; 
+				   //console.log(count)
+				   var updates =  parsedData.updates
+				   for(var i in updates){
+                     if(updates[i][0] == 4){
+                        console.log(updates[i][5])
+                        console.log(updates[i][6])
+                     }  
+				   }
+				   count++;
+				 
+				   	//longpjl(data)
+				  
+				 });
+			});
+      },3000);
+}
+
+   
+
