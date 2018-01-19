@@ -40,7 +40,15 @@ function rand(min, max)
 	  mass[u] = {ws:ws};
 	 // ws.send(JSON.stringify({type:'users',content:newfile()}));
 	  ws.on('message', function(message) {
-	  	var ot = JSON.parse(message);
+	  	try {
+
+          var ot = JSON.parse(message);
+
+          } catch (err) {
+
+              return;
+
+         } 
 	  	ot['ws'] = u;
         event.emit(ot.type,ot);
         console.log(ot.type)
